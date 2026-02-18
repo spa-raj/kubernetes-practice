@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: myapp-deployment
+  labels:
+    app: myapp-deployment
+  annotations:
+    kubernetes.io/change-cause: "Updated image to nginx:1.21-alpine"
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: nginx
+      tier: backend
+  template:
+    metadata:
+      name: myapp-deployment
+      labels:
+        app: nginx
+        tier: backend
+    spec:
+      containers:
+        - name: myapp-deployment
+          image: nginx:1.21-alpine
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 80
+              protocol: TCP
+      restartPolicy: Always
+      
