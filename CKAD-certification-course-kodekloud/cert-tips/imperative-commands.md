@@ -51,3 +51,12 @@ kubectl create service nodeport nginx --tcp=80:80 --node-port=30080 --dry-run=cl
 # Reference:
 
 ### https://kubernetes.io/docs/reference/kubectl/conventions/
+
+
+# Example scenarios:
+### 1. Create a pod named httpd using the image httpd:alpine in the default namespace.
+### Then, create a service of type ClusterIP with the same name (httpd) that exposes the pod on port 80.
+```bash
+kubectl run httpd --image=httpd:alpine --port=80 --expose
+```
+
