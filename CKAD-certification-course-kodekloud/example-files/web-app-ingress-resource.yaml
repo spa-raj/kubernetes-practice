@@ -1,0 +1,30 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: web-app-ingress
+  namespace: webapp
+  annotations:
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+spec:
+  defaultBackend:
+    service:
+      name: default-backend
+      port:
+        number: 80
+  ingressClassName: nginx
+  tls:
+    - hosts:
+        - app.kodekloud.local
+      secretName: app-tls
+  rules:
+    - host: app.kodekloud.local
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: web-app
+                port:
+                  number: 80
+  ~
